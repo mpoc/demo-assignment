@@ -14,18 +14,4 @@
       repository: this
       branch: master
       sha: latest
-      # repository: git@github.com:automated-assessment/coursework_3_tests.git
-      # branch: master
-      # sha: 8f5fb0f4c8bffa355a3a34ba84916cf456b6d5e8
-      # repository: https://github.com/mpoc/coursework_3_tests
-      # branch: master
-      # sha: latest
     timeout: 1m
-# - name: rng
-#   weight: 60
-#   condition: 40
-#   context: ''
-#   depends-on:
-#     - junit
-#     - javac
-#   configuration:
