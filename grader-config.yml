@@ -1,14 +1,7 @@
 - name: javac
-  weight: 30
+  weight: 50
   condition: 40
   context: ''
-  configuration:
-- name: rng
-  weight: 20
-  condition: 10
-  context: ''
-  depends-on:
-    - 'junit'
   configuration:
 - name: junit
   weight: 50
