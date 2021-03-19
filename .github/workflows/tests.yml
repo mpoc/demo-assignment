@@ -1,0 +1,46 @@
+name: Tests
+on:
+  pull_request:
+    branches:
+      - master
+env:
+  nexus_url: http://486f7be0d824.ngrok.io
+jobs:
+  test-assignment-validity:
+    name: Test assignment validity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Remote YAML file validation
+        uses: mpoc/yaml-validation-action@main
+        with:
+          # api-endpoint: ${{ secrets.ASSIGNMENT_VALIDATION_URL }}
+          api-endpoint: ${{ env.nexus_url }}/nexus/validation/assignment
+          yaml-file: assignment.yml
+  test-grader-configuration-validity:
+    name: Test grader configuration validity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Nexus grader config validation
+        uses: mpoc/nexus-grader-config-test-action@master
+        with:
+          # grader-config-schema-endpoints: ${{ secrets.CONFIG_SCHEMA_ENDPOINTS }}
+          grader-config-schema-endpoints: >
+            {
+                "javac": "${{ env.nexus_url }}/javac-tool/config_schema",
+                "rng": "${{ env.nexus_url }}/rng-tool/config_schema",
+                "conf": "${{ env.nexus_url }}/config-tool/config_schema",
+                "iotool": "${{ env.nexus_url }}/io-grader/config_schema",
+                "junit": "${{ env.nexus_url }}/junit-grader/config_schema",
+                "cppiograder": "${{ env.nexus_url }}/cpp-iograder/config_schema",
+                "cppcompilation": "${{ env.nexus_url }}/cpp-compilation/config_schema",
+                "cppunit": "${{ env.nexus_url }}/cppunit-grader/config_schema"
+            }
+          yaml-file: grader-config.yml
+  # test-sample-submission-grades:
+  #   name: Test grades of sample submissions
+  #   runs-on: ubuntu-latest
+  #   steps:

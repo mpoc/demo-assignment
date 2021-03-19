@@ -1,0 +1,15 @@
+name: Notify
+on:
+  push:
+    branches:
+      - master
+jobs:
+  notify-nexus-about-assignment-update:
+    name: Nexus assignment update notifier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send update notification
+        uses: mpoc/nexus-update-notifier-action@main
+        with:
+          nexus-url: http://0a05dfdfdffa.ngrok.io/nexus
+          assignment-id: 129
